@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 
 def fetch_laptops():
+    # The website has 13 pages of laptops, so we loop through each page to fetch the data
     base = "https://discountelectronics.com/refurbished-laptops/"
     for i in range(1, 14):
         url = base + f"?page={i}"
@@ -21,18 +22,22 @@ def fetch_laptops():
 
 
 def search(query):
+    # We fetch all laptops and filter them based on the search query
     for name, price in fetch_laptops():
         if query.lower() in name.lower():
             print(f"Name: {name}\nPrice: {price}\n\n")
 
 
 def view_all():
+    # We simply fetch and display all laptops without any filtering
     for name, price in fetch_laptops():
         print(f"Name: {name}\nPrice: {price}\n\n")
 
 
 if __name__ == "__main__":
-    while True:
+    # The main loop allows the user to choose between searching for a laptop, viewing all laptops, or exiting the program
+    running = True
+    while running:
         choice = (
             input(
                 "Enter 'search' to search for a laptop, 'view' to view all laptops, or 'exit' to quit: "
@@ -47,6 +52,6 @@ if __name__ == "__main__":
         elif choice == "view":
             view_all()
         elif choice == "exit":
-            break
+            running = False
         else:
             print("Invalid choice. Please try again.")
